@@ -6,19 +6,45 @@
     export let last;
     export let location;
 
+    let options = ['Name', 'Desc', 'Desc from file', '# of posts', 'Avg. likes'];
+    let hovered = false;
+
     function remove() {
         let coors = location.split('').map(num => parseInt(num));
         dispatch('remove', {
-           first: coors[0], second: coors[1]
+           queryIndex: coors[0], segmentIndex: coors[1]
         });
+    }
+
+    function flipBackground() {
+        if(!last)
+            hovered = !hovered;
+    }
+
+    function changeValue(event) {
+        content.name = event.target.value;
+        content = content;
     }
 </script>
 
-<div class="segment">
-    <button disabled={last} on:click={remove}>X</button>
+<div class="segment" class:background={hovered}>
+    <button disabled={last} on:click={remove} on:mouseenter={flipBackground} on:mouseleave={flipBackground}>X</button>
     <div>
-        Search <input value={content.name}> in
-        <select><option>segment</option></select>
+        {#if content.name === 'Name' || content.name === 'Desc' || content.name === 'Desc from file'}
+            <input value={content.query}> in
+            <select on:change={changeValue}>
+                {#each options as option}
+                    <option selected={content.name === option ? 'selected' : ''}>{option}</option>
+                {/each}
+            </select>
+        {:else}
+            <select on:change={changeValue}>
+                {#each options as option}
+                    <option selected={content.name === option ? 'selected' : ''}>{option}</option>
+                {/each}
+            </select> is from <input class='number' type="number" value={content.from}> to <input class='number' type="number" value={content.to}>
+        {/if}
+
     </div>
 </div>
 
@@ -28,5 +54,13 @@
         flex-flow: column nowrap;
         padding: 3px;
         gap: 3px;
+    }
+
+    .background {
+        background: indianred;
+    }
+
+    .number {
+        width: 50px;
     }
 </style>
