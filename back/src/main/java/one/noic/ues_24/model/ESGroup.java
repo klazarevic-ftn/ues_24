@@ -1,5 +1,6 @@
 package one.noic.ues_24.model;
 
+import lombok.NoArgsConstructor;
 import one.noic.ues_24.controller.dto.group.CreateGroupDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -8,6 +9,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 
 @Document(indexName = "group_index")
+@NoArgsConstructor
 public class ESGroup {
     
     public ESGroup(CreateGroupDto dto) {

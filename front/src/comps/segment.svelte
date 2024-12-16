@@ -31,7 +31,7 @@
     <button disabled={last} on:click={remove} on:mouseenter={flipBackground} on:mouseleave={flipBackground}>X</button>
     <div>
         {#if content.name === 'Name' || content.name === 'Desc' || content.name === 'Desc from file'}
-            <input value={content.query}> in
+            <input bind:value={content.query}> in
             <select on:change={changeValue}>
                 {#each options as option}
                     <option selected={content.name === option ? 'selected' : ''}>{option}</option>
@@ -42,7 +42,7 @@
                 {#each options as option}
                     <option selected={content.name === option ? 'selected' : ''}>{option}</option>
                 {/each}
-            </select> is from <input class='number' type="number" value={content.from}> to <input class='number' type="number" value={content.to}>
+            </select> is from <input class='number' type="number" bind:value={content.from}> to <input class='number' type="number" bind:value={content.to}>
         {/if}
 
     </div>

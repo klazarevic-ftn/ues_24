@@ -1,15 +1,19 @@
 package one.noic.ues_24.controller;
 
+import io.minio.errors.*;
 import one.noic.ues_24.controller.dto.group.CreateGroupDto;
+import one.noic.ues_24.model.Group;
 import one.noic.ues_24.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("group")
 public class GroupController {
@@ -21,15 +25,27 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @GetMapping("")
-    public ResponseEntity<String> getGroupById(){
-        return new ResponseEntity<>("Herro", HttpStatus.OK);
+    @GetMapping("{id}")
+    public Optional<Group> getGroupById(@PathVariable(value = "id") Integer id) {
+        return groupService.getById(id);
     }
 
-    @CrossOrigin
     @PostMapping("")
-    public void crateGroup(@RequestPart("group") CreateGroupDto group, @RequestPart("file") MultipartFile file) throws IOException {
-        groupService.createGroup(group, file);
+    public Integer crateGroup(@RequestPart("group") CreateGroupDto group, @RequestPart("file") MultipartFile file) throws IOException {
+        return groupService.createGroup(group, file);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteGroup(@PathVariable(value = "id") Integer id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        groupService.deleteById(id);
+    }
+
+    @PutMapping("{id}")
+    public void updateGroup(
+            @PathVariable(value = "id") Integer id,
+            @RequestPart("dto") CreateGroupDto group,
+            @RequestPart(value = "file", required = false) MultipartFile file)
+            throws IOException {
+        groupService.updateGroup(id, group, file);
+    }
 }
