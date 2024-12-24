@@ -22,14 +22,16 @@ public class ESPost {
     @Id
     @Field(name = "id", type = FieldType.Integer)
     public int id;
-    @Field(name = "title", type = FieldType.Text)
+    @Field(name = "title", type = FieldType.Text, normalizer = "lowerasciinormalizer")
     public String title;
-    @Field(name = "fullContent", type = FieldType.Text)
+    @Field(name = "fullContent", type = FieldType.Text, normalizer = "lowerasciinormalizer")
     public String fullContent;
-    @Field(name = "fileContent", type = FieldType.Text)
+    @Field(name = "fileContent", type = FieldType.Text, normalizer = "lowerasciinormalizer")
     public String fileContent;
     @Field(name = "numberOfLikes", type = FieldType.Long)
     public Long numberOfLikes;
-    @Field(name = "commentContent", type = FieldType.Text)
+    @Field(name = "numberOfComments", type = FieldType.Long)
+    public Integer numberOfComments;
+    @Field(name = "commentContent", type = FieldType.Text, normalizer = "lowerasciinormalizer")
     public String commentContent;
 }

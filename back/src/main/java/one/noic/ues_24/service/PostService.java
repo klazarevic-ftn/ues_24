@@ -1,6 +1,7 @@
 package one.noic.ues_24.service;
 
 import io.minio.errors.*;
+import jakarta.transaction.Transactional;
 import one.noic.ues_24.controller.dto.post.PostDto;
 import one.noic.ues_24.model.ESGroup;
 import one.noic.ues_24.model.ESPost;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,9 +67,30 @@ public class PostService {
         return postRepository.findById(id);
     }
 
+    public Integer getGroupIdById(Integer id) {
+        return postRepository.getGroupIdById(id);
+    }
+
     public void deletePost(Integer id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         this.postRepository.deleteById(id);
         this.elasticsearchOperations.delete(id + "", ESPost.class);
         this.storageService.deleteFile("post", id + ".pdf");
     }
+
+    public List<Post> getAll() {
+        return this.postRepository.findAll();
+    }
+
+    @Transactional
+    public String getPostCommentContent(Integer id) {
+        return this.postRepository.getCommentContent(id);
+    }
+
+    @Transactional
+    public Integer getPostCommentCount(Integer id) {
+        return this.postRepository.getPostCommentCount(id);
+    }
+
+    @Transactional
+    public Long getPostLikeCount(Integer id) { return this.postRepository.getPostLikeCount(id); }
 }

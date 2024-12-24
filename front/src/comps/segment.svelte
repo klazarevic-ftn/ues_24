@@ -5,8 +5,8 @@
     export let content;
     export let last;
     export let location;
-
-    let options = ['Name', 'Desc', 'Desc from file', '# of posts', 'Avg. likes'];
+    export let options;
+    let textInputs = ['Name', 'Desc', 'Desc from file','Rules','Title', 'Content','File content','Comments'];
     let hovered = false;
 
     function remove() {
@@ -23,6 +23,15 @@
 
     function changeValue(event) {
         content.name = event.target.value;
+        content.query = '';
+        content.from = '';
+        content.to = '';
+
+        content = content;
+    }
+
+    function changeQueryType(event) {
+        content.searchType = event.target.value;
         content = content;
     }
 </script>
@@ -30,13 +39,18 @@
 <div class="segment" class:background={hovered}>
     <button disabled={last} on:click={remove} on:mouseenter={flipBackground} on:mouseleave={flipBackground}>X</button>
     <div>
-        {#if content.name === 'Name' || content.name === 'Desc' || content.name === 'Desc from file'}
+        {#if textInputs.indexOf(content.name) > -1 }
             <input bind:value={content.query}> in
             <select on:change={changeValue}>
                 {#each options as option}
                     <option selected={content.name === option ? 'selected' : ''}>{option}</option>
                 {/each}
             </select>
+            as
+            <select on:change={changeQueryType}>
+                <option>Phraze</option>
+                <option>Fuzzy</option>
+            </select> query
         {:else}
             <select on:change={changeValue}>
                 {#each options as option}
@@ -44,7 +58,6 @@
                 {/each}
             </select> is from <input class='number' type="number" bind:value={content.from}> to <input class='number' type="number" bind:value={content.to}>
         {/if}
-
     </div>
 </div>
 

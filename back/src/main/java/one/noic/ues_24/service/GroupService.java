@@ -1,6 +1,7 @@
 package one.noic.ues_24.service;
 
 import io.minio.errors.*;
+import jakarta.transaction.Transactional;
 import one.noic.ues_24.controller.dto.group.CreateGroupDto;
 import one.noic.ues_24.model.ESGroup;
 import one.noic.ues_24.model.Group;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -101,7 +103,13 @@ public class GroupService {
         return this.groupRepository.getNumberOfPostsById(id);
     }
 
+    @Transactional
     public Double getAverageReact(Integer id) {
         return this.groupRepository.getAverageReact(id);
+    }
+
+    @Transactional
+    public List<Group> getAll() {
+        return this.groupRepository.findAll();
     }
 }

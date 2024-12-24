@@ -86,6 +86,13 @@
 			<artifactId>pdfbox</artifactId>
 			<version>3.0.3</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>76.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

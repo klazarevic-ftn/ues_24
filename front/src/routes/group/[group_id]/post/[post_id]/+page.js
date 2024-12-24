@@ -1,5 +1,6 @@
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
+
     try {
         const response = await fetch(`http://localhost:8080/post/${params.post_id}`, {
             headers: {

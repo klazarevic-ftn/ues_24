@@ -53,7 +53,7 @@
         location.href = `/group/${data.groupId}`;
     }
 </script>
-
+<a href="/group/{data.groupId}">Group</a>
 <div class="main">
     <div class="row">
         <div>

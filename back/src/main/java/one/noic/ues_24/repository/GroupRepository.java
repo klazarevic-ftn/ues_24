@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.query.Procedure;
 
 public interface GroupRepository extends JpaRepository<Group, Integer> {
 
-    @Procedure("num_post_per_group")
+    @Procedure("post_count")
     Long getNumberOfPostsById(Integer id);
 
-    @Procedure("avg_reaction")
+    @Procedure("avg_likes_per_group")
     Double getAverageReact(Integer id);
 
 }

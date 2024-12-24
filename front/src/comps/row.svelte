@@ -6,6 +6,8 @@
 
     export let row;
     export let index;
+    export let options;
+
     let hovered = false;
 
     function removeSegment(event) {
@@ -27,7 +29,7 @@
 
 <div class="row" style="gap: 5px; padding: 5px;" class:background={hovered}>
     {#each row as segment}
-        <Segment on:remove={removeSegment} content={segment} last={index === 0 && row.indexOf(segment) === 0} location={`${index}${row.indexOf(segment)}`}/>
+        <Segment on:remove={removeSegment} content={segment} last={index === 0 && row.indexOf(segment) === 0} location={`${index}${row.indexOf(segment)}`} options={options}/>
 
         {#if row.indexOf(segment) + 1 === row.length && row.length < 5}
             <button on:click={addAnd} data-id={index}>+AND</button>

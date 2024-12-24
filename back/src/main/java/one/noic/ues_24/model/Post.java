@@ -37,14 +37,16 @@ public class Post {
 
     @OneToMany(
             cascade = CascadeType.REMOVE,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "post_id")
     public List<Comment> comments = new ArrayList<>();
 
     @OneToMany(
             cascade = CascadeType.REMOVE,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "post_id")
     private List<Reaction> reactions;
